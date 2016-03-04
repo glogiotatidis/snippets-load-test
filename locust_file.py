@@ -15,7 +15,7 @@ class DesktopTaskSet(TaskSet):
     @task
     def fetch_snippets(self):
         url = random.choice(DESKTOP_URLS)
-        with self.client.get(url, catch_response=True) as response:
+        with self.client.get(url, catch_response=True, name="Desktop") as response:
             if response.status_code == 301:
                 response.success()
 
@@ -24,7 +24,7 @@ class MobileTaskSet(TaskSet):
     @task
     def fetch_snippets(self):
         url = random.choice(MOBILE_URLS)
-        self.client.get(url)
+        self.client.get(url, name="Fennec")
 
 
 class DesktopLocust(HttpLocust):
