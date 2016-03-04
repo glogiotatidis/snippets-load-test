@@ -4,11 +4,21 @@ from urlparse import urljoin
 from locust import HttpLocust, TaskSet, task
 
 
-with open('desktop.urls') as f:
-    DESKTOP_URLS = f.read().splitlines()
+with open('urls/desktop.urls') as f:
+    LINES = f.read().splitlines()
 
-with open('mobile.urls') as f:
-    MOBILE_URLS = f.read().splitlines()
+    DESKTOP_URLS = []
+    for line in LINES:
+        weight, url = line.split()
+        DESKTOP_URLS += [url for i in range(int(weight))]
+
+with open('urls/mobile.urls') as f:
+    LINES = f.read().splitlines()
+
+    MOBILE_URLS = []
+    for line in LINES:
+        weight, url = line.split()
+        MOBILE_URLS += [url for i in range(int(weight))]
 
 
 class DesktopTaskSet(TaskSet):
